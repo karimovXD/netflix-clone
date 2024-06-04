@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 //components
 import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
+import Footer from '../components/Footer'
 //service
 import { MovieLists } from '../services/movieLists'
 import { Trending } from '../services/trending'
@@ -11,7 +12,8 @@ const Home = () => {
     const [popularMovies, setPopularMovies] = useState(null);
     const [upcoming, setUpcoming] = useState(null);
     const [topRated, setTopRated] = useState(null);
-    const [animations, setAnimations] = useState(null);
+    const [trandingTV, setTrandingTV] = useState(null);
+    const [trandingMovies, setTrandingMovies] = useState(null);
 
     const handleSetNowPlayingVideos = async () => {
         const { results } = await MovieLists.nowPlaying();
@@ -38,10 +40,19 @@ const Home = () => {
         }
     }
 
-    const handleSetTrendingMovies = async () => {
+    const handleSetTrendingTV = async () => {
         try {
             const { results } = await Trending.tv();
-            setAnimations(results);
+            setTrandingTV(results);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleSetTrendingMovies = async () => {
+        try {
+            const { results } = await Trending.movies();
+            setTrandingMovies(results);
         } catch (error) {
             console.log(error);
         }
@@ -52,6 +63,7 @@ const Home = () => {
         handleSetPopular();
         handleSetUpcoming();
         handleSetTopRated();
+        handleSetTrendingTV();
         handleSetTrendingMovies();
     }, [])
 
@@ -81,7 +93,7 @@ const Home = () => {
                     </div>
                 </div>
             </header>
-            <main>
+            <main className='mb-36'>
                 <section className='w-full h-auto pt-10 px-5 text-white'>
                     <h1 className='text-2xl md:text-3xl font-bold'>Popular</h1>
                     <div className='pt-5'>
@@ -101,12 +113,21 @@ const Home = () => {
                     </div>
                 </section>
                 <section className='w-full h-auto pt-10 px-5 text-white'>
-                    <h1 className='text-2xl md:text-3xl font-bold'>Trending</h1>
+                    <h1 className='text-2xl md:text-3xl font-bold'>Trending TV</h1>
                     <div className='pt-5'>
-                        <Slider movies={animations} />
+                        <Slider movies={trandingTV} />
+                    </div>
+                </section>
+                <section className='w-full h-auto pt-10 px-5 text-white'>
+                    <h1 className='text-2xl md:text-3xl font-bold'>Trending Movies</h1>
+                    <div className='pt-5'>
+                        <Slider movies={trandingMovies} />
                     </div>
                 </section>
             </main>
+            <footer>
+                <Footer />
+            </footer>
         </div>
     )
 }

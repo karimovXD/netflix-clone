@@ -1,16 +1,31 @@
 import { useState } from 'react'
-import { Flex, Button, Input, ConfigProvider, Drawer, Dropdown, Avatar } from 'antd';
+import { Flex, Button, Input, ConfigProvider, Drawer, Dropdown, Avatar, message } from 'antd';
 import { MenuOutlined, LoginOutlined, UserOutlined, MehOutlined } from '@ant-design/icons';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 //images
-import logo from '../static/icons/logo.png'
+import logo from '../static/icons/logo.png';
+import { setMyContext } from '../context/MyContext';
 
 const Navbar = ({ signup, signin }) => {
     const [showDrawer, setShowDrawer] = useState(false);
+    const navigate = useNavigate();
+
+    const { userSignOut } = setMyContext();
+
+    const handleSignOut = async () => {
+        try {
+            await message.loading('Wait...')
+            await userSignOut();
+            navigate('/signin')
+        } catch (error) {
+            message.error('Error');
+        }
+    }
 
     const items = [
         {
-            key: '1',
+            key: 1,
             label: (
                 <Link to='/profile'>Profile</Link>
             ),
@@ -18,9 +33,9 @@ const Navbar = ({ signup, signin }) => {
             //disabled: true,
         },
         {
-            key: '2',
+            key: 2,
             label: (
-                <h1>Log out</h1>
+                <button onClick={handleSignOut}>Log out</button>
             ),
             icon: <LoginOutlined />,
         },
@@ -29,7 +44,7 @@ const Navbar = ({ signup, signin }) => {
     const handlePageLogic = () => {
         if (signup === 'signup') {
             return (
-                <Flex gap={4} className='flex-col xs:flex-row'>
+                <Flex gap={4} className='flex-col xs:flex-row items-center justify-end'>
                     <Link to='/signin'><Button type='primary' danger className='font-semibold'>Sign in</Button></Link>
                 </Flex>
             )
@@ -92,23 +107,21 @@ const Navbar = ({ signup, signin }) => {
                             </header>
                             <main className='pt-10'>
                                 <Flex gap={20} className='text-white flex-col items-start font-medium'>
-                                    <NavLink>TV Shows</NavLink>
-                                    <NavLink>Movies</NavLink>
-                                    <NavLink>Recently Added</NavLink>
-                                    <NavLink>My List</NavLink>
+                                    <NavLink to='/' className='hover:underline'>Movies</NavLink>
                                 </Flex>
                             </main>
                         </Drawer>
                     </div>
                     <Flex gap={20} className='ss:flex items-center justify-start text-sm ss:text-base hidden'>
-                        <NavLink to='/'>Movies</NavLink>
-                        <NavLink to='/tvshows'>TV Shows</NavLink>
-                        <NavLink to=''>Recently Added</NavLink>
-                        <NavLink to='mylist'>My List</NavLink>
+                        <NavLink to='/' className='hover:underline'>Home</NavLink>
+                        <Link to='/' className='hover:underline'>TV Shows</Link>
+                        <Link to='/' className='hover:underline'>Movies</Link>
+                        <Link to='/' className='hover:underline'>New & Popular</Link>
+                        <Link to='/' className='hover:underline'>My List</Link>
                     </Flex>
                     <div className='ss:flex items-center justify-end gap-5 hidden'>
                         <Input.Search />
-                        <Dropdown menu={{ items }} placement='bottomRight'>
+                        <Dropdown menu={{ items, }} placement='bottomRight'>
                             <Avatar shape="square" size={44} icon={<MehOutlined />} />
                         </Dropdown>
                     </div>
@@ -118,7 +131,7 @@ const Navbar = ({ signup, signin }) => {
     }
 
     return (
-        <nav className='w-full flex gap-5 items-center justify-between p-5 m-auto xxl:w-[1440px] relative z-10 text-white'>
+        <nav className='w-full flex gap-5 items-center justify-between p-5 relative z-10 text-white'>
             <div className='w-[20%]'><img src={logo} alt="" className='w-28 md:w-48 select-none' /></div>
             <div className='w-[75%]'>{handlePageLogic()}</div>
         </nav>

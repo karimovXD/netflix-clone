@@ -12,5 +12,9 @@ export const Trending = {
     tv: async function () {
         const response = await axiosInstance.get('/trending/tv/week', options);
         return response.data;
+    }, 
+    movies: async function () {
+        const response = await axiosInstance.get('/trending/movie/day', options);
+        return response.data;
     }
 }

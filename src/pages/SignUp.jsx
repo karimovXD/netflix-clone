@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button, ConfigProvider, Flex, Input, Card } from 'antd'
+import { Link } from 'react-router-dom'
+import { Button, ConfigProvider, Flex, Input } from 'antd'
 //components
 import Navbar from '../components/Navbar';
 import Questions from '../components/Questions';
+import Footer from '../components/Footer'
 
 const Signup = () => {
     return (
@@ -22,7 +24,9 @@ const Signup = () => {
                         }}>
                             <Flex gap={8} className='flex-col sm:flex-row items-center justify-center'>
                                 <Input type='text' placeholder='Email Address' className='text-secondary rounded-sm' size='large' />
-                                <Button type='primary' danger className='font-semibold rounded-sm' size='large'>Get Started</Button>
+                                <Link to='/start_signup'>
+                                    <Button type='primary' danger className='font-semibold rounded-sm' size='large'>Get Started</Button>
+                                </Link>
                             </Flex>
                         </ConfigProvider>
                     </div>
@@ -130,6 +134,7 @@ const Signup = () => {
                 </section >
             </main >
             <footer>
+                <Footer />
             </footer>
         </div >
     )

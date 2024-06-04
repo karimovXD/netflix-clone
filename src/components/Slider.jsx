@@ -1,11 +1,10 @@
-import { useRef, useState } from 'react';
+import React from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import required modules
@@ -16,7 +15,6 @@ import SliderImage from './SliderImage';;
 
 const Slider = ({ movies }) => {
 
-    console.log(movies);
     return (
         <div>
             <Swiper
@@ -38,8 +36,7 @@ const Slider = ({ movies }) => {
                     1024: {
                         slidesPerView: 5,
                     },
-                }}
-            >
+                }}>
                 {
                     movies?.map((item, i) => <SwiperSlide key={i} className='w-auto h-auto'>
                         <SliderImage item={item} />

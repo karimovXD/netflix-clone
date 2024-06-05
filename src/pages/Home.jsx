@@ -4,8 +4,8 @@ import Navbar from '../components/Navbar'
 import Slider from '../components/Slider'
 import Footer from '../components/Footer'
 //service
-import { MovieLists } from '../services/movieLists'
-import { Trending } from '../services/trending'
+import { MovieLists } from '../services/MovieLists'
+import { Trending } from '../services/Trending'
 
 const Home = () => {
     const [nowPlaying, setNowPlaying] = useState(null);

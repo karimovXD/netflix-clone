@@ -21,19 +21,10 @@ function App() {
     else return <SignUp />
   }
 
-  //if (user) {
-  //  navigate('/')
-  //} else if (user) {
-  //  navigate('/')
-  //} else {
-  //  navigate('/signup')
-  //}
-
   return (
     <Routes>
       <Route path='/' element={homePage()} />
       <Route path='/signin' element={<SignIn />} />
-      <Route path='/signup' element={<SignUp />} />
       <Route path='/start_signup' element={<StartSignUp />} />
       <Route path='/profile' element={<Profile />} />
       <Route path='/movie/:id' element={<Movie />} />

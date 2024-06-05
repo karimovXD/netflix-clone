@@ -13,4 +13,12 @@ export const Movies = {
         const response = await axiosInstance.get(`/movie/${id}`, options);
         return response.data;
     },
+    videos: async function (id) {
+        const response = await axiosInstance.get(`/movie/${id}/ `, options)
+        return response.data;
+    },
+    recommendations: async function (id) {
+        const response = await axiosInstance.get(`/movie/${id}/recommendations`, options)
+        return response.data;
+    }
 }

@@ -8,7 +8,6 @@ export const setMyContext = () => useContext(Mycontext);
 
 export default ({ children }) => {
     const [user, setUser] = useState(null);
-    console.log(user);
 
     const signUp = (email, password) => createUserWithEmailAndPassword(auth, email, password);
     const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);

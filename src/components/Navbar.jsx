@@ -132,7 +132,7 @@ const Navbar = ({ signup, signin }) => {
 
     return (
         <nav className='w-full flex gap-5 items-center justify-between p-5 relative z-10 text-white'>
-            <div className='w-[20%]'><img src={logo} alt="" className='w-28 md:w-48 select-none' /></div>
+            <div className='w-[20%]'><Link to='/'><img src={logo} alt="" className='w-28 md:w-48 select-none' /></Link></div>
             <div className='w-[75%]'>{handlePageLogic()}</div>
         </nav>
     )

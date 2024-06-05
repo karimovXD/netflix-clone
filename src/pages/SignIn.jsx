@@ -1,22 +1,22 @@
 import React from 'react';
-import { Form, Input, ConfigProvider, message } from 'antd';
+import { Form, Input, ConfigProvider } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { setMyContext } from '../context/MyContext';
 //components
 import Navbar from '../components/Navbar'
 
 const Signin = () => {
+  const [passwordVisible, setPasswordVisible] = React.useState(false);
+
   const { signIn } = setMyContext();
   const navigate = useNavigate();
 
   const handleSignIn = async ({ email, password }) => {
     try {
-      await message.loading('wait...');
       await signIn(email, password);
-      message.success('Welcome!');
-      navigate('/')
+      navigate('/');
     } catch (error) {
-      message.error('Error')
+      console.log(error);
     }
   }
 
@@ -27,7 +27,7 @@ const Signin = () => {
         <Navbar signin={'signin'} />
         <ConfigProvider theme={{
           components: {
-            Input: { colorBgContainer: 'rgba(0, 0, 0, 0.458)', activeBorderColor: '#fff', colorBorder: "#BDBDBD", hoverBorderColor: '#fff', colorTextPlaceholder: "#BDBDBD", colorText: '#fff' },
+            Input: { colorBgContainer: 'rgba(0, 0, 0, 0.458)', activeBorderColor: '#fff', colorBorder: "#BDBDBD", hoverBorderColor: '#fff', colorTextPlaceholder: "#BDBDBD", colorText: '#fff', colorIcon: '#fff', colorIconHover: '#fff' },
           }
         }}>
           <div className='w-full ss:w-[600px] m-auto bg-[#0d0d0db5] mt-10 relative z-20 p-10'>
@@ -41,7 +41,7 @@ const Signin = () => {
                 <Input placeholder='Email' required type='email' />
               </Form.Item>
               <Form.Item className='w-full mb-8 mt-2' name='password' rules={[{ required: true, message: 'Write your password' }]}>
-                <Input placeholder='Password' type='password' required />
+                <Input.Password placeholder='Password' type='password' required />
               </Form.Item>
               <Form.Item
                 className='w-full'
@@ -53,7 +53,7 @@ const Signin = () => {
               </Form.Item>
             </Form>
             <div>
-              <h3 className='text-secondary'>New to Netflix? <Link to='/signup' className='text-white font-medium' >Sign up now.</Link></h3>
+              <h3 className='text-secondary'>New to Netflix? <Link to='/start_signup' className='text-white font-medium' >Sign up now.</Link></h3>
             </div>
           </div>
         </ConfigProvider>

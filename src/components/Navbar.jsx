@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Flex, Button, Input, ConfigProvider, Drawer, Dropdown, Avatar, message } from 'antd';
+import { Flex, Button, Input, ConfigProvider, Drawer, Dropdown, Avatar } from 'antd';
 import { MenuOutlined, LoginOutlined, UserOutlined, MehOutlined } from '@ant-design/icons';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
@@ -15,11 +15,10 @@ const Navbar = ({ signup, signin }) => {
 
     const handleSignOut = async () => {
         try {
-            await message.loading('Wait...')
             await userSignOut();
             navigate('/signin')
         } catch (error) {
-            message.error('Error');
+            console.log(error);
         }
     }
 
